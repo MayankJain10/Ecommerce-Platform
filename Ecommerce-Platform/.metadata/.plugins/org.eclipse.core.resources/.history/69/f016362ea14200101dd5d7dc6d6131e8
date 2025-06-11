@@ -1,0 +1,7 @@
+package com.mayank.ecommerce.entity.dto;
+
+import java.util.List;
+
+public class OrderRequestDTO {
+    private List<OrderItemDTO> items;
+}

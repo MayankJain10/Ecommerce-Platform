@@ -1,0 +1,63 @@
+package com.mayank.ecommerce.controller;
+
+import com.mayank.ecommerce.config.JwtUtil;
+import com.mayank.ecommerce.entity.Order;
+import com.mayank.ecommerce.entity.User;
+import com.mayank.ecommerce.repository.OrderRepository;
+import com.mayank.ecommerce.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api")
+public class InvoiceController {
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @GetMapping("/invoice/{orderId}")
+    public ResponseEntity<?> getInvoice(@PathVariable Long orderId,
+                                        @RequestHeader("Authorization") String authHeader) {
+        String email = jwtUtil.extractUsername(authHeader.substring(7));
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isEmpty()) {
+            return ResponseEntity.badRequest().body("Order not found");
+        }
+
+        Order order = optionalOrder.get();
+
+        if (!order.getUser().getEmail().equals(email)) {
+            throw new AccessDeniedException("You are not authorized to access this invoice");
+        }
+
+        if (order.isCancelled()) {
+            return ResponseEntity.badRequest().body("Invoice not available for cancelled order");
+        }
+
+        // ✨ Replace this with real invoice generation logic
+        byte[] pdfData = ("Invoice for order #" + orderId + "\nTotal: ₹" + order.getTotalAmount())
+                .getBytes(); // Just a dummy byte array
+
+        ByteArrayResource resource = new ByteArrayResource(pdfData);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=invoice_" + orderId + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .contentLength(pdfData.length)
+                .body(resource);
+    }
+}

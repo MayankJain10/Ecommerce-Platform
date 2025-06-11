@@ -1,0 +1,38 @@
+package com.mayank.ecommerce.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mayank.ecommerce.entity.Product;
+import com.mayank.ecommerce.entity.dto.ProductDTO;
+import com.mayank.ecommerce.repository.ProductRepository;
+
+@Service
+public class ProductService {
+	
+	@Autowired
+	private ProductRepository productRepository;
+
+	public Product createProduct(ProductDTO productDTO) {
+		Product prod = new Product();
+		
+		prod.setName(productDTO.getName());
+		prod.setDescription(productDTO.getDescription());
+		prod.setPrice(productDTO.getPrice());
+		prod.setQuantity(productDTO.getQuantity());
+		
+		return productRepository.save(prod);
+	}
+
+	public List<Product> getAllProducts() {
+		return productRepository.findAll();
+	}
+
+	public Optional<Product> getProductById(Long id) {
+		return productRepository.findById(id);
+	}
+
+}

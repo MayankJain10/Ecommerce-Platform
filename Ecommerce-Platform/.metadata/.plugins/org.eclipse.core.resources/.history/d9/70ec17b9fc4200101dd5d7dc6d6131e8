@@ -1,0 +1,5 @@
+package com.mayank.ecommerce.exception;
+
+public class ResourceNotFoundException {
+
+}

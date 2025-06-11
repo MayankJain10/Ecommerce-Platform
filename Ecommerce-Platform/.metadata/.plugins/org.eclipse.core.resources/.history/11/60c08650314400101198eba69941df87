@@ -1,0 +1,5 @@
+package com.mayank.ecommerce.service;
+
+public class AdminService {
+
+}

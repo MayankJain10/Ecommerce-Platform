@@ -1,0 +1,67 @@
+package com.mayank.ecommerce.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mayank.ecommerce.config.JwtUtil;
+import com.mayank.ecommerce.entity.Order;
+import com.mayank.ecommerce.entity.dto.OrderRequestDTO;
+import com.mayank.ecommerce.service.OrderService;
+
+@RestController
+@RequestMapping("/api/order")
+public class OrderController {
+	@Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping("/place/order")
+    public Order placeOrder(@RequestBody OrderRequestDTO dto, @RequestHeader("Authorization") String authHeader) {
+        String email = jwtUtil.extractUsername(authHeader.substring(7));
+        return orderService.placeOrder(dto, email);
+    }
+
+    @GetMapping("/getMy/order")
+    public List<Order> getMyOrders(@RequestHeader("Authorization") String authHeader) {
+        String email = jwtUtil.extractUsername(authHeader.substring(7));
+        return orderService.getUserOrders(email);
+    }
+    
+    
+    
+    /**
+     * POST /api/order/place/from-cart
+     * 
+     * Description:
+     * - Converts all cart items of the logged-in user into an Order.
+     * - Automatically clears the user's cart after placing the order.
+     * 
+     * Headers:
+     * - Authorization: Bearer <JWT Token>
+     * 
+     * Response:
+     * - Returns the placed Order object with all order items.
+     * 
+     * Errors:
+     * - 401 Unauthorized: if token is invalid/missing
+     * - 400 BadRequest: if cart is empty or user not found
+     */
+    
+    @PostMapping("/place/fromCart")
+    public ResponseEntity<Order>placeOrderFromCart(@RequestHeader("Authorization") String authHeader){
+		String email = jwtUtil.extractUsername(authHeader.substring(9));
+		return ResponseEntity.ok(orderService.placeOrderFromCart(email));
+
+	}
+
+}

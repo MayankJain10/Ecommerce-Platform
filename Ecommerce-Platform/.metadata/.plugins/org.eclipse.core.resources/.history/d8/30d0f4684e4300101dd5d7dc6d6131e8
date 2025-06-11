@@ -1,0 +1,5 @@
+package com.mayank.ecommerce.entity.dto;
+
+public class OrderResponseDTO {
+
+}
