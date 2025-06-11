@@ -1,0 +1,16 @@
+package com.mayank.ecommerce.service;
+
+import org.springframework.stereotype.Service;
+
+import com.mayank.ecommerce.entity.Product;
+import com.mayank.ecommerce.entity.dto.ProductDTO;
+
+@Service
+public class ProductService {
+
+	public Product createProduct(ProductDTO productDTO) {
+		Product prod = new Product();
+		return null;
+	}
+
+}

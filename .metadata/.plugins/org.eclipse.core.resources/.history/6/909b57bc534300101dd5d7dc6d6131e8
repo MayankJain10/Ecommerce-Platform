@@ -1,0 +1,49 @@
+package com.mayank.ecommerce.service;
+
+import com.mayank.ecommerce.config.JwtUtil;
+import com.mayank.ecommerce.entity.User;
+import com.mayank.ecommerce.entity.dto.UserDTO;
+import com.mayank.ecommerce.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	public void registerUser(UserDTO userDTO) {
+		User user = new User();
+		user.setName(userDTO.getName());
+		user.setEmail(userDTO.getEmail());
+		user.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
+
+		// Set role from input, default to CUSTOMER if null
+		if (userDTO.getRole() != null
+				&& (userDTO.getRole().equalsIgnoreCase("ADMIN") || userDTO.getRole().equalsIgnoreCase("CUSTOMER"))) {
+			user.setRole(userDTO.getRole().toUpperCase());
+		} else {
+			user.setRole("CUSTOMER");
+		}
+
+		userRepository.save(user);
+
+	}
+
+	public String loginUser(UserDTO userDTO) {
+		User user = userRepository.findByEmail(userDTO.getEmail())
+				.orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+		if (!new BCryptPasswordEncoder().matches(userDTO.getPassword(), user.getPassword())) {
+			throw new BadCredentialsException("Invalid password");
+		}
+
+		return jwtUtil.generateToken(user.getEmail());
+	}
+}

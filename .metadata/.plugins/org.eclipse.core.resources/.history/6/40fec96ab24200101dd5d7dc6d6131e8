@@ -1,0 +1,31 @@
+package com.mayank.ecommerce.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mayank.ecommerce.config.JwtUtil;
+import com.mayank.ecommerce.entity.dto.CartDTO;
+import com.mayank.ecommerce.service.CartService;
+
+@RestController
+@RequestMapping("/api/cart")
+public class CartController {
+	
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	@Autowired
+	private CartService cartService;
+	
+	@PostMapping("/addTo/cart")
+	public ResponseEntity<String>addToCart(@RequestHeader("Authorization") String authHeader, @RequestBody CartDTO cartDTO){
+		String email = jwtUtil.extractUsername(authHeader.substring(7));
+		cartService.addToCart(email, cartDTO);
+		return ResponseEntity.ok("Added to cart");
+	}
+}

@@ -1,0 +1,8 @@
+package com.mayank.ecommerce.exception;
+
+public class ProductNotFoundException extends Runtime {
+
+	public ProductNotFoundException(String message) {
+        super(message);
+    }
+}

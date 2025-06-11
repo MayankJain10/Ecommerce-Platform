@@ -1,0 +1,18 @@
+package com.mayank.ecommerce.entity.dto;
+
+public class CartResponseDTO {
+    private Long cartId;
+    private String message;
+    private String productName;
+    private int quantity;
+
+    public CartResponseDTO(Long cartId, String message, String productName, int quantity) {
+        this.cartId = cartId;
+        this.message = message;
+        this.productName = productName;
+        this.quantity = quantity;
+    }
+
+    // Getters and Setters
+}
+
