@@ -1,8 +1,0 @@
-package com.mayank.ecommerce.exception;
-
-public class ProductNotFoundException {
-
-	public ProductNotFoundException(String message) {
-        super(message);
-    }
-}

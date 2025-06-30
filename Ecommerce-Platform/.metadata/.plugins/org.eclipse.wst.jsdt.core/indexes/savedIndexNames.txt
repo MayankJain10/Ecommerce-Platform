@@ -1,7 +1,5 @@
-INDEX VERSION 1.4+/home/mayank/Documents/PROJECTS MAYANK/SPING BOOT PROJECT/Ecommerce/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-1194810492.index
-2259903336.index
-851229029.index
-1174192400.index
-3941651054.index
-2516571728.index
+INDEX VERSION 1.4+/home/mayank/Documents/PROJECTS MAYANK/WORKSPACE-ECOMMERCE-PLATFORM-FULLSTACK/Ecommerce-Platform/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+251207791.index
+4065185833.index
+2186464106.index
+2723153714.index

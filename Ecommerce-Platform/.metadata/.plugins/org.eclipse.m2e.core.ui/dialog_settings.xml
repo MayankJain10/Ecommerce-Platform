@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/home/mayank/Documents/PROJECTS MAYANK/SPING BOOT PROJECT/Ecommerce-Platform/ecommerce-backend"/>
 			<item value="/home/mayank/Documents/PROJECTS MAYANK/SPING BOOT PROJECT/Ecommerce/ecommerce"/>
 		</list>
 		<list key="projectNameTemplate">

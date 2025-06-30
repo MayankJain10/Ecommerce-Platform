@@ -53,3 +53,4 @@ Caused by: org.apache.maven.model.building.ModelBuildingException: 1 problem was
 2025-06-05 16:43:22,891 [Worker-10: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for ecommerce
 2025-06-05 16:43:28,435 [Worker-6: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of ecommerce
 2025-06-05 16:43:28,436 [Worker-6: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for ecommerce
+2025-06-25 11:58:25,604 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
