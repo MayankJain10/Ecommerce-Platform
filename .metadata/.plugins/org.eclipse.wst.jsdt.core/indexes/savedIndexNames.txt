@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+/home/mayank/Documents/PROJECTS MAYANK/SPING BOOT PROJECT/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-3432081515.index
-2516571728.index
-2242372495.index
-3157703048.index
-87354957.index
-2784056419.index
